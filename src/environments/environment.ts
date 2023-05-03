@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api-nest-loanly-hk0k.onrender.com',
   keys: {
     token: 'TOKEN',
     user: 'USER',
