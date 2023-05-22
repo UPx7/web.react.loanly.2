@@ -7,6 +7,7 @@ export const environment = {
   routes: {
     auth: {
       login: '/users/login',
+      signUp: '/users/signup',
     }
   }
 }

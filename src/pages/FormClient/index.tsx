@@ -3,8 +3,13 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import ContainerNavbar from '../../components/ContainerNavbar';
 import './styles.css';
 import {UserPayload} from "../../models/payloads/user.payload";
+import {api} from "../../hooks/useApi";
+import {environment} from "../../environments/environment";
+import {useNavigate} from "react-router";
 
 function FormClient() {
+
+  const navigate = useNavigate();
   const [form, setForm] = useState<UserPayload>({
     id: '',
     name: '',
@@ -21,7 +26,19 @@ function FormClient() {
     uf: '',
     empresa: '',
     cnpj: '',
-  })
+  });
+
+  const registerNewUser = async (): Promise<void> => {
+    try {
+      await api.post(environment.routes.auth.signUp, form);
+
+      alert('Usuário registrado com sucesso');
+      navigate('/');
+    } catch (error) {
+      // @ts-ignore
+      alert(error.message());
+    }
+  }
 
   return (
     <>
@@ -37,9 +54,6 @@ function FormClient() {
         <Row xs={ 12 } md={ 12 } lg={ 12 } className="justify-content-md-center g-4">
           <Col xs={ 12 } md={ 6 } lg={ 6 }>
             <Form className="formClient">
-              {/* <h2>
-               Crie seu cadastro e feche seu orçamento
-               </h2> */ }
               <span className="fs-5"><p>Dados de cadastro</p></span>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Nome</Form.Label>
@@ -174,33 +188,24 @@ function FormClient() {
                   autoFocus
                   type="text"
                   placeholder="CNPJ"
-                  value={ form?.empresa }
+                  value={ form?.cnpj }
                   onChange={(event) => setForm({ ...form, cnpj: event.target.value })}/>
               </Form.Group>
               <span className="fs-5"><p>Dados do Login</p></span>
               <Form.Label>E-mail de acesso à conta: </Form.Label> <strong>{ form?.email }</strong>
               <Form.Group className="mb-2" controlId="formBasicPassword">
-                <Form.Label>Confirme sua senha</Form.Label>
-                <Form.Control
-                  autoFocus
-                  type="password"
-                  placeholder="Informe sua senha"
-                  value={ form?.password }
-                  onChange={(event) => setForm({ ...form, password: event.target.value })}/>
-              </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
                 <Form.Label>Senha</Form.Label>
                 <Form.Control
                   autoFocus
                   type="password"
-                  placeholder="Informe sua senha novamente"
+                  placeholder="Informe sua senha"
                   onChange={(event) => setForm({ ...form, password: event.target.value })}/>
               </Form.Group>
               <Form.Group className="mb-4" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Mostrar senha"/>
               </Form.Group>
               <div className="d-grid gap-2">
-                <Button variant="success outline" type="submit">
+                <Button variant="success outline" onClick={ registerNewUser }>
                   Enviar
                 </Button>
               </div>

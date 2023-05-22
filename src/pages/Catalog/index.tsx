@@ -1,12 +1,16 @@
-import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import React, {useState} from 'react';
+import { Container, Row } from 'react-bootstrap';
 
 import CardItem from '../../components/CardEquipment';
 import ContainerNavbar from '../../components/ContainerNavbar';
 
 import './styles.css';
+import {EquipmentProxy} from "../../models/interfaces/equipment.proxy";
 
 function Catalog() {
+
+  const [listEquipments, setListEquipments] = useState<EquipmentProxy[]>([]);
+
   return (
     <>
       <ContainerNavbar/>
@@ -25,11 +29,7 @@ function Catalog() {
         </div>
 
         <Row xs={ 2 } md={ 2 } lg={ 4 } className="justify-content-md-center g-4">
-          { Array.from({ length: 1 }).map((_, idx) => (
-            <Col>
-              <CardItem/>
-            </Col>
-          )) }
+          { listEquipments.map(equipment => <CardItem equipment={ equipment } />) }
         </Row>
       </Container>
     </>
