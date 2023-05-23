@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { environment } from '../environments/environment';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: environment.baseUrl,
 });
 
@@ -17,4 +17,4 @@ export const useApi = () => ({
     });
     return result.data;
   },
-})
+});

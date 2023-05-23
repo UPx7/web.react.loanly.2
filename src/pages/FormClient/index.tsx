@@ -2,12 +2,42 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import ContainerNavbar from '../../components/ContainerNavbar';
 import './styles.css';
+import {UserPayload} from "../../models/payloads/user.payload";
+import {api} from "../../hooks/useApi";
+import {environment} from "../../environments/environment";
+import {useNavigate} from "react-router";
 
 function FormClient() {
-  const [email, setEmail] = useState('');
 
-  function handleChange(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setEmail(event.target.value);
+  const navigate = useNavigate();
+  const [form, setForm] = useState<UserPayload>({
+    id: '',
+    name: '',
+    email: '',
+    imageUrl: '',
+    password: '',
+    celular: '',
+    cep: '',
+    endereco: '',
+    numero: 0,
+    complemento: '',
+    bairro: '',
+    cidade: '',
+    uf: '',
+    empresa: '',
+    cnpj: '',
+  });
+
+  const registerNewUser = async (): Promise<void> => {
+    try {
+      await api.post(environment.routes.auth.signUp, form);
+
+      alert('Usuário registrado com sucesso');
+      navigate('/');
+    } catch (error) {
+      // @ts-ignore
+      alert(error.message());
+    }
   }
 
   return (
@@ -24,36 +54,58 @@ function FormClient() {
         <Row xs={ 12 } md={ 12 } lg={ 12 } className="justify-content-md-center g-4">
           <Col xs={ 12 } md={ 6 } lg={ 6 }>
             <Form className="formClient">
-              {/* <h2>
-               Crie seu cadastro e feche seu orçamento
-               </h2> */ }
               <span className="fs-5"><p>Dados de cadastro</p></span>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Nome</Form.Label>
-                <Form.Control autoFocus type="text" placeholder="Nome"/>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  placeholder="Nome"
+                  value={ form?.name }
+                  onChange={(event) => setForm({ ...form, name: event.target.value })}/>
                 {/* <Form.Text className="text-muted">
                  We'll never share your email with anyone else.
                  </Form.Text> */ }
               </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Celular</Form.Label>
-                <Form.Control type="text" placeholder="Celular"/>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  placeholder="Celular"
+                  value={ form?.celular }
+                  onChange={(event) => setForm({ ...form, celular: event.target.value })}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>E-mail</Form.Label>
-                <Form.Control onChange={ handleChange } type="email" placeholder="E-mail"/>
+                <Form.Control
+                  autoFocus
+                  type="email"
+                  placeholder="Email"
+                  value={ form?.email }
+                  onChange={(event) => setForm({ ...form, email: event.target.value })}/>
               </Form.Group>
               <Row>
                 <Col xs={ 3 } md={ 3 } lg={ 3 }>
                   <Form.Group className="mb-2" controlId="formBasicEmail">
                     <Form.Label>CEP</Form.Label>
-                    <Form.Control type="text" placeholder="CEP"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="CEP"
+                      value={ form?.cep }
+                      onChange={(event) => setForm({ ...form, cep: event.target.value })}/>
                   </Form.Group>
                 </Col>
                 <Col xs={ 9 } md={ 9 } lg={ 9 }>
                   <Form.Group className="mb-2" controlId="formBasicEmail">
                     <Form.Label>Endereço</Form.Label>
-                    <Form.Control disabled type="text" placeholder="Endereço comercial"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="Endereço comercial"
+                      value={ form?.endereco }
+                      onChange={(event) => setForm({ ...form, endereco: event.target.value })}/>
                   </Form.Group>
                 </Col>
               </Row>
@@ -61,13 +113,23 @@ function FormClient() {
                 <Col xs={ 3 } md={ 3 } lg={ 3 }>
                   <Form.Group className="mb-2" controlId="formBasicEmail">
                     <Form.Label>Número</Form.Label>
-                    <Form.Control type="number" placeholder="Número"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="Número"
+                      value={ form?.numero }
+                      onChange={(event) => setForm({ ...form, numero: +event.target.value })}/>
                   </Form.Group>
                 </Col>
                 <Col xs={ 6 } md={ 6 } lg={ 9 }>
                   <Form.Group className="mb-2" controlId="formBasicEmail">
                     <Form.Label>Complemento</Form.Label>
-                    <Form.Control type="text" placeholder="Complemento"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="Complemento"
+                      value={ form?.complemento }
+                      onChange={(event) => setForm({ ...form, complemento: event.target.value })}/>
                   </Form.Group>
                 </Col>
               </Row>
@@ -75,19 +137,34 @@ function FormClient() {
                 <Col xs={ 3 } md={ 3 } lg={ 4 }>
                   <Form.Group className="mb-2" controlId="formClient_barirro">
                     <Form.Label>Bairro</Form.Label>
-                    <Form.Control disabled type="text" placeholder="Bairro"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="Bairro"
+                      value={ form?.bairro }
+                      onChange={(event) => setForm({ ...form, bairro: event.target.value })}/>
                   </Form.Group>
                 </Col>
                 <Col xs={ 6 } md={ 6 } lg={ 6 }>
                   <Form.Group className="mb-2" controlId="formBformClient_cidade">
                     <Form.Label>Cidade</Form.Label>
-                    <Form.Control disabled type="text" placeholder="Cidade"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="Cidade"
+                      value={ form?.cidade }
+                      onChange={(event) => setForm({ ...form, cidade: event.target.value })}/>
                   </Form.Group>
                 </Col>
                 <Col xs={ 6 } md={ 6 } lg={ 2 }>
                   <Form.Group className="mb-2" controlId="formClient_uf">
                     <Form.Label>UF</Form.Label>
-                    <Form.Control disabled type="text" placeholder="UF"/>
+                    <Form.Control
+                      autoFocus
+                      type="text"
+                      placeholder="UF"
+                      value={ form?.uf }
+                      onChange={(event) => setForm({ ...form, uf: event.target.value })}/>
                   </Form.Group>
                 </Col>
               </Row>
@@ -98,27 +175,37 @@ function FormClient() {
               <span className="fs-5"><p>Dados da empresa</p></span>
               <Form.Group className="mb-3" controlId="formClient_empresa">
                 <Form.Label>Empresa</Form.Label>
-                <Form.Control type="text" placeholder="Empresa"/>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  placeholder="Empresa"
+                  value={ form?.empresa }
+                  onChange={(event) => setForm({ ...form, empresa: event.target.value })}/>
               </Form.Group>
               <Form.Group className="mb-2" controlId="formClient_cnpj">
                 <Form.Label>CNPJ</Form.Label>
-                <Form.Control type="text" placeholder="CNPJ"/>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  placeholder="CNPJ"
+                  value={ form?.cnpj }
+                  onChange={(event) => setForm({ ...form, cnpj: event.target.value })}/>
               </Form.Group>
               <span className="fs-5"><p>Dados do Login</p></span>
-              <Form.Label>E-mail de acesso à conta: </Form.Label> <strong>{ email }</strong>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
-                <Form.Label>Confirme sua senha</Form.Label>
-                <Form.Control type="password" placeholder="Informe sua senha"/>
-              </Form.Group>
+              <Form.Label>E-mail de acesso à conta: </Form.Label> <strong>{ form?.email }</strong>
               <Form.Group className="mb-2" controlId="formBasicPassword">
                 <Form.Label>Senha</Form.Label>
-                <Form.Control type="password" placeholder="Informe sua senha novamente"/>
+                <Form.Control
+                  autoFocus
+                  type="password"
+                  placeholder="Informe sua senha"
+                  onChange={(event) => setForm({ ...form, password: event.target.value })}/>
               </Form.Group>
               <Form.Group className="mb-4" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Mostrar senha"/>
               </Form.Group>
               <div className="d-grid gap-2">
-                <Button variant="success outline" type="submit">
+                <Button variant="success outline" onClick={ registerNewUser }>
                   Enviar
                 </Button>
               </div>

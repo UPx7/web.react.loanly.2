@@ -1,10 +1,9 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Form,  Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import ContainerNavbar from '../../components/ContainerNavbar';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import './styles.css';
-import { nullLiteralTypeAnnotation } from '@babel/types';
 
 export default function Login(): ReactElement {
 
@@ -54,8 +53,13 @@ export default function Login(): ReactElement {
             type="password"
             placeholder="Informe sua senha" />
         </Form.Group>
-        <Form.Group className="mb-4" controlId="formBasicCheckbox">
+        <Form.Group className="mb-4 d-flex justify-content-between" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Mostrar senha" />
+          <Button
+              className="text-danger"
+              style={{ cursor: 'pointer', background: 'none', border: 0 }}
+              href="formClient">
+            Cadastrar-se</Button>
         </Form.Group>
         <div className="d-grid gap-2">
           <Button 
