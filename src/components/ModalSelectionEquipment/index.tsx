@@ -40,7 +40,7 @@ function ModalSelectionEquipment() {
                             <Form.Group className="mb-2" controlId="formModalSelectionEquip">
                                 <Form.Label>Escolha um equipamento que deseja adicionar ao orçamento</Form.Label>
                                 <Form.Select autoFocus>
-                                    <option disabled value={0} selected>Selecione uma opção</option>
+                                    <option disabled value={0} selected>Selecione uma categoria</option>
                                     <option value={0}>Escavadeiras</option>
                                     <option value={0}>Retroescavadeiras</option>
                                     <option value={0}>Pá Carregadeiras</option>
@@ -56,15 +56,7 @@ function ModalSelectionEquipment() {
                                 <Form.Label>Escolha o modelo</Form.Label>
                                 <Form.Select>
                                     <option disabled value={0} selected>Selecione uma opção</option>
-                                    <option value={0}>Escavadeiras</option>
-                                    <option value={0}>Retroescavadeiras</option>
-                                    <option value={0}>Pá Carregadeiras</option>
-                                    <option value={0}>Rolos Compactadores</option>
-                                    <option value={0}>Tratores de esteira</option>
-                                    <option value={0}>Tratores de roda</option>
-                                    <option value={0}>Motoniveladoras</option>
-                                    <option value={0}>Manipuladores Telescópicos</option>
-                                    <option value={0}>Perfuratriz</option>
+                                    <option value={0}>JCB 1260</option>
                                 </Form.Select>
                             </Form.Group>
                         </Form>

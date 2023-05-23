@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Tender from './pages/Tender';
 import MyPage from './pages/MyPage';
 import Dashboard from './pages/Dashboard';
+import NewEquipment from './pages/NewEquipment';
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +47,10 @@ function App() {
     {
       path: 'dashboard',
       element: <Dashboard/>,
+    },
+    {
+      path: 'newEquipment',
+      element: <NewEquipment/>,
     },
   ]);
 
