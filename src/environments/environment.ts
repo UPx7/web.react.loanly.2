@@ -8,6 +8,13 @@ export const environment = {
     auth: {
       login: '/users/login',
       signUp: '/users/signup',
+    },
+    equipments: {
+      base: '/equipments',
+      byId: '/equipments/{id}',
+    },
+    tenders: {
+      base: '/tenders',
     }
   }
 }

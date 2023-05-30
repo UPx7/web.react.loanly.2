@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-
 import { FaWeightHanging } from 'react-icons/fa';
 import { ImPower } from 'react-icons/im';
 import CarouselImages from '../../components/CarouselImages';
 import ContainerNavbar from '../../components/ContainerNavbar';
-
+import { api, apiConfig } from '../../hooks/useApi';
 import './styles.css';
+import { environment } from '../../environments/environment';
+import { EquipmentProxy } from '../../models/interfaces/equipment.proxy';
 
 function Equipment() {
+  const equipmentId = window.location.search.replace('?id=', '');
+  const [equipment, setEquipment] = useState<EquipmentProxy>();
+
+  useEffect(() => {
+    if (!equipmentId)
+      return alert('Nenhum equipamento foi encontrado...');
+
+    const url = environment.routes.equipments.byId.replace('{id}', equipmentId);
+
+    api.get(url, apiConfig)
+      .then(result => setEquipment(result.data))
+      .catch(error => alert(error.message));
+  }, []);
+
   return (
     <>
       <ContainerNavbar/>
@@ -31,21 +46,16 @@ function Equipment() {
           <Row className="row row-cols-1 row-cols-md-2 mb-2 align-items-center text-center justify-content-md-left">
             <Col xs={ 12 } md={ 12 } lg={ 7 }>
               <div className="pricing-header p-3 pb-md-4 mx-auto">
-                <h2 className="fw-normal">Características técnicas</h2>
+                <h2 className="fw-normal">{ equipment?.modelo }</h2>
                 <Row xs={ 5 } md={ 4 } lg={ 12 }>
                   <Col xs={ 0 } md={ { span: 4, offset: 2 } }>
-                    <FaWeightHanging className="p-1 mb-4" size="3em" color="#00C89B"/> 3.450 Kg
+                    <FaWeightHanging className="p-1 mb-4" size="3em" color="#00C89B"/> { equipment?.peso } Kg
                   </Col>
                   <Col xs={ 0 } md={ { span: 4, offset: 0 } }>
-                    <ImPower className="p-1 mb-4" size="3em" color="#00C89B"/> 115 Hp
+                    <ImPower className="p-1 mb-4" size="3em" color="#00C89B"/> { equipment?.potencia } Hp
                   </Col>
                 </Row>
-                <p className="fs-6 text-body-secondary">Quickly build an effective pricing table for your potential
-                  customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with
-                  little customization.</p>
-                <p className="fs-6 text-body-secondary">Quickly build an effective pricing table for your potential
-                  customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with
-                  little customization.</p>
+                <p className="fs-6 text-body-secondary">{ equipment?.description }</p>
                 <div className="d-grid gap-2">
                   <Button href="tender" variant="primary" size="lg">
                     Realize seu orçamento

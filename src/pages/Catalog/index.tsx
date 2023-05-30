@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import CardItem from '../../components/CardEquipment';
 import ContainerNavbar from '../../components/ContainerNavbar';
-
-import './styles.css';
 import {EquipmentProxy} from "../../models/interfaces/equipment.proxy";
+import './styles.css';
+import { api, apiConfig } from '../../hooks/useApi';
+import { environment } from '../../environments/environment';
 
 function Catalog() {
-
   const [listEquipments, setListEquipments] = useState<EquipmentProxy[]>([]);
+
+  useEffect(() => {
+    api.get(environment.routes.equipments.base, apiConfig)
+      .then(result => setListEquipments(result.data))
+      .catch(error => alert(error.message));
+  }, []);
 
   return (
     <>
@@ -29,7 +35,7 @@ function Catalog() {
         </div>
 
         <Row xs={ 2 } md={ 2 } lg={ 4 } className="justify-content-md-center g-4">
-          { listEquipments.map(equipment => <CardItem equipment={ equipment } />) }
+          { listEquipments.map(equipment => <CardItem key={ equipment._id } equipment={ equipment } />) }
         </Row>
       </Container>
     </>

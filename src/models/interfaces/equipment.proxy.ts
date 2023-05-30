@@ -1,5 +1,5 @@
 export interface EquipmentProxy {
-  id: string;
+  _id: string;
   modelo: string;
   potencia: number;
   peso: number;

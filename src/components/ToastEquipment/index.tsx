@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Alert } from 'react-bootstrap';
 
 import "./styles.css";
+import { EquipmentProxy } from '../../models/interfaces/equipment.proxy';
 
-function ToastEquipment() {
+function ToastEquipment(props: { equipment: EquipmentProxy }) {
     const [showA, setShowA] = useState(true);
 
     const toggleShowA = () => setShowA(!showA);
@@ -17,10 +18,10 @@ function ToastEquipment() {
         >
         <Toast.Header closeButton={false}>
             
-            <strong className="me-auto">Empilhadeira</strong>
+            <strong className="me-auto">Categoria</strong>
             <small><Alert.Link onClick={toggleShowA} className='alert-link' href="#">Excluir</Alert.Link></small>
         </Toast.Header>
-        <Toast.Body>Modelo <strong>JCB 1160</strong></Toast.Body>
+        <Toast.Body>Modelo <strong>{ props?.equipment?.modelo }</strong></Toast.Body>
         </Toast>
     );
 }
