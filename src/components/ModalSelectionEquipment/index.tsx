@@ -18,13 +18,6 @@ function ModalSelectionEquipment() {
 
     return (
         <>
-            {/* <Button className='AddEquipment' variant="primary" size="sm" onClick={handleShow}>
-                <MdAdd size="1em" color="#000"/> 
-                {' '}Escolher equipamento
-            </Button> */}
-            
-            <small><Alert.Link onClick={handleShow} className='alertModal' href="#">Escolher equipamento</Alert.Link></small>
-
             <Modal
                 show={show}
                 size="lg"

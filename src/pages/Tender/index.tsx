@@ -18,6 +18,7 @@ function Tender() {
   const [listEquipments, setListEquipments] = useState<EquipmentProxy[]>([]);
   const [form, setForm] = useState<TenderInterface>({
     equipmentId: '64766c0545640c219900d89a',
+    data_reserva: new Date().toISOString(),
   });
 
   useEffect(() => {
@@ -37,7 +38,14 @@ function Tender() {
     form.date2 = date2.toISOString();
 
     try {
-      await api.post(environment.routes.tenders.base, form, apiConfig);
+      const tender = await api.post(environment.routes.tenders.base, form, apiConfig);
+      await api.post(environment.routes.dataModules.base, {
+        tempOff: 0,
+        tempOnStop: 0,
+        tempOnRunning: 0,
+        dateUpdate: tender.data.data_reserva,
+        tenderId: tender.data._id,
+      });
       navigate('/myPage');
     } catch (e) {
       alert(e);
@@ -74,7 +82,6 @@ function Tender() {
               </div>
               <div className="mb-4">
                 { listEquipments.map(equipment => <ToastEquipment key={ equipment._id } equipment={ equipment }/>) }
-                {/* <ToastEquipment /> */}
               </div>
             </Col>
             <Col xs={12} md={12} lg={4}>

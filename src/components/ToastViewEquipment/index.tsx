@@ -3,27 +3,24 @@ import React, { useState } from 'react';
 import { Alert } from 'react-bootstrap';
 
 import "./styles.css";
+import { TenderInterface } from '../../models/interfaces/tender.interface';
 
-function ToastViewEquipment() {
-    const [showA, setShowA] = useState(true);
-
-    const toggleShowA = () => setShowA(showA);
-
+function ToastViewEquipment(props: { tender: TenderInterface }) {
     return (
         <Toast
-            show={showA} onClose={toggleShowA}
+            show={true}
             className="d-inline-block m-1"
             key={0}
         >
         <Toast.Header closeButton={false}>
             
             <strong className="me-auto">Empilhadeira</strong>
-            <small><Alert.Link onClick={toggleShowA} className='alert-link' href="dashboard">Visualizar Dashboard</Alert.Link></small>
+            <small><Alert.Link className='alert-link' href={`dashboard?tenderId=${ props.tender._id }`}>Visualizar Dashboard</Alert.Link></small>
         </Toast.Header>
         <Toast.Body>
             Modelo <strong>JCB 1160</strong>
             <br></br>
-            <small>Data da reserva: <p> dd/mm/aaaa </p></small>             
+            <small>Data da reserva: <p> { props.tender.data_reserva?.substr(0, 10) } </p></small>
         </Toast.Body>
 
         </Toast>

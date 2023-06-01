@@ -7,6 +7,7 @@ import { EquipmentProxy } from '../../models/interfaces/equipment.proxy';
 
 function ToastEquipment(props: { equipment: EquipmentProxy }) {
     const [showA, setShowA] = useState(true);
+    const [selected, setSelected] = useState<boolean>(false);
 
     const toggleShowA = () => setShowA(!showA);
 
@@ -18,7 +19,7 @@ function ToastEquipment(props: { equipment: EquipmentProxy }) {
         >
         <Toast.Header closeButton={false}>
             
-            <strong className="me-auto">Categoria</strong>
+            <strong className="me-auto pointer" onClick={() => setSelected(!selected)}>{ selected ? 'Selecionado' : 'Selecionar' }</strong>
             <small><Alert.Link onClick={toggleShowA} className='alert-link' href="#">Excluir</Alert.Link></small>
         </Toast.Header>
         <Toast.Body>Modelo <strong>{ props?.equipment?.modelo }</strong></Toast.Body>

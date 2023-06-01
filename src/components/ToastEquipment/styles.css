@@ -5,3 +5,7 @@
 .alert-link:hover {
     color: rgba(247, 71, 71, 0.577)
 }
+
+.pointer {
+    cursor: pointer;
+}

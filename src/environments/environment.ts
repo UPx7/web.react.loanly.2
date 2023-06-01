@@ -9,12 +9,17 @@ export const environment = {
       login: '/users/login',
       signUp: '/users/signup',
     },
+    dataModules: {
+      base: '/data-modules',
+      byId: '/data-modules/{id}',
+    },
     equipments: {
       base: '/equipments',
       byId: '/equipments/{id}',
     },
     tenders: {
       base: '/tenders',
+      byId: '/tenders/{id}',
     }
   }
 }
