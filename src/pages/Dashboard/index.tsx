@@ -86,11 +86,11 @@ function Dashboard() {
 
           <br/>
 
-          <h4>Equipamento permaneceu em movimento por: </h4><p>{ getMinutesByMs(dataModule?.tempOnRunning) } minutos</p>
+          <h4>Equipamento permaneceu em movimento por: </h4><p>{ getMinutesByMs(dataModule?.tempOnStop) } minutos</p>
 
           <br/>
 
-          <h4>Equipamento permaneceu parado por: </h4><p>{ getMinutesByMs(dataModule?.tempOnStop) } minutos</p>
+          <h4>Equipamento permaneceu parado por: </h4><p>{ getMinutesByMs(dataModule?.tempOnRunning) } minutos</p>
         </main>
       </Container>
     </>
